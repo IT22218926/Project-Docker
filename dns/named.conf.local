@@ -1,0 +1,5 @@
+zone "csne.vcct.com" {
+    type master;
+    file "/etc/bind/db.csne.vcct.com";
+};
+

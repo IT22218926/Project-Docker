@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  dns:
+    image: bhugz/dns-bind:v1
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+  dhcp:
+    image: bhugz/dhcp-isc:v1
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+    command: sh -c "dhcpd -4 -f -d -cf /etc/dhcp/dhcpd.conf ens37"
+
+  proxy:
+    image: bhugz/proxy-squid:v1
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+    command: sh -c "squid -N -f /etc/squid/squid.conf -d 1"
